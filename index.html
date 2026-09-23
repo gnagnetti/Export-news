@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luisa Spagnoli - Global Export & Retail Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0A1118;
+      --bg-card: #121E2A;
+      --bg-card-hover: #1A2A3A;
+      --accent-gold: #C5A880;
+      --accent-gold-hover: #D8BD96;
+      --text-main: #F0F4F8;
+      --text-muted: #8E9CAE;
+      --border-color: #213245;
+      --badge-bg: rgba(197, 168, 128, 0.12);
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+    .brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Currency Ticker */
+    .ticker-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .ticker-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ticker-pair { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+    .ticker-val { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+    .ticker-change { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+    .up { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+    .down { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+
+    /* Controls & Filters */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      background: var(--bg-card);
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+    .market-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--accent-gold);
+      color: #000;
+      border-color: var(--accent-gold);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 280px;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    /* Actions Bar */
+    .actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .btn-export {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .btn-export:hover { background: var(--accent-gold); color: #000; }
+
+    /* News Grid */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 20px;
+    }
+    .news-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .news-card:hover {
+      transform: translateY(-2px);
+      background: var(--bg-card-hover);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .source-badge {
+      background: var(--badge-bg);
+      color: var(--accent-gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .market-tag {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .news-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .news-preview {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .btn-read {
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: var(--bg-card);
+      padding: 32px;
+      border-radius: 8px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+    }
+    .close-modal {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div>
+      <div class="brand-title">Luisa Spagnoli</div>
+      <div class="subtitle">Global Export & Retail Intelligence (Ultimi 7 Giorni)</div>
+    </div>
+    <div style="text-align: right;">
+      <span class="source-badge" id="last-update">Aggiornato Oggi</span>
+    </div>
+  </header>
+
+  <!-- Currency Bar (Evidenziato EUR/RUB per mercato Russia) -->
+  <div class="ticker-bar">
+    <div class="ticker-card" style="border-color: var(--accent-gold);">
+      <div>
+        <div class="ticker-pair">EUR / RUB (Russia)</div>
+        <div class="ticker-val">96.26</div>
+      </div>
+      <span class="ticker-change up">+2.02%</span>
+    </div>
+    <div class="ticker-card">
+      <div>
+        <div class="ticker-pair">EUR / USD (USA/Global)</div>
+        <div class="ticker-val">1.14</div>
+      </div>
+      <span class="ticker-change down">-2.82%</span>
+    </div>
+    <div class="ticker-card">
+      <div>
+        <div class="ticker-pair">INDICE TESSUTO/LANA</div>
+        <div class="ticker-val">104.2 pt</div>
+      </div>
+      <span class="ticker-change up">+0.4%</span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="controls">
+    <div class="market-tabs">
+      <button class="tab-btn active" onclick="filterMarket('ALL')">Tutti i Mercati</button>
+      <button class="tab-btn" onclick="filterMarket('ITA')">🇮🇹 Italia (Retail & B2B)</button>
+      <button class="tab-btn" onclick="filterMarket('EUR')">🇪🇺 Europa (Francia, DE, UK, ES)</button>
+      <button class="tab-btn" onclick="filterMarket('RUS')">🇷🇺 Russia & CIS (B2B, Glossy & Finance)</button>
+      <button class="tab-btn" onclick="filterMarket('USA')">🇺🇸 Nord America</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="Cerca brand, citta, dazi, fisco..." onkeyup="handleSearch()">
+    </div>
+  </div>
+
+  <div class="actions-bar">
+    <span style="font-size: 0.85rem; color: var(--text-muted);" id="count-info">Notizie trovate: 8</span>
+    <div>
+      <button class="btn-export" onclick="exportCSV()">Esporta CSV</button>
+      <button class="btn-export" onclick="window.print()">Stampa PDF</button>
+    </div>
+  </div>
+
+  <!-- News Grid -->
+  <div class="news-grid" id="newsGrid">
+    <!-- Generato via JavaScript -->
+  </div>
+</div>
+
+<!-- Modal Reader -->
+<div class="modal" id="newsModal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <h2 id="modalTitle" style="font-family: var(--font-heading); margin-bottom: 12px; color: var(--accent-gold);"></h2>
+    <div id="modalMeta" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;"></div>
+    <div id="modalBody" style="font-size: 0.95rem; line-height: 1.7;"></div>
+  </div>
+</div>
+
+<script>
+  // Dataset notizie degli ultimi 7 giorni (Settembre 2026)
+  const articles = [
+    {
+      id: 1,
+      market: 'ITA',
+      source: 'Pambianconews',
+      title: 'Quadrilatero della Moda: Milano registra un incremento del +4% del flusso foot-traffic nelle high street',
+      date: '2026-09-22',
+      preview: 'I dati sulla distribuzione fisica multimarca e sui flagship store nelle vie del lusso evidenziano un aumento degli acquisti da parte di turisti internazionali.',
+      body: 'Milano si riconferma hub strategico per il lusso. Il costante monitoraggio delle reti distributive evidenzia un consolidamento delle vetrine nelle vie principali (Via Monte Napoleone e Via della Spiga). I dati di Pambianconews indicano una crescita positiva per le collezioni abbigliamento donna e maglieria ad alto valore artigianale.'
+    },
+    {
+      id: 2,
+      market: 'ITA',
+      source: 'Federazione Moda Italia',
+      title: 'Report Congiunturale Retail: Saldo tra aperture e chiusure store nei centri storici',
+      date: '2026-09-21',
+      preview: 'Confcommercio rilascia le nuove statistiche sull’andamento dei negozi di abbigliamento indipendenti e boutique in franchising sul territorio nazionale.',
+      body: 'Il saldo del retail d’abbigliamento evidenzia una razionalizzazione delle superfici di vendita indipendenti a favore di format monomarca altamente posizionati. La rete fisica italiana richiede una sempre maggiore integrazione omnicanale.'
+    },
+    {
+      id: 3,
+      market: 'RUS',
+      source: 'PROfashion.ru',
+      title: 'Analisi B2B: Il segmento Premium Abbigliamento Donna registra una domanda in crescita nei multibrand',
+      date: '2026-09-22',
+      preview: 'Nonostante la riorganizzazione delle rotte logistiche, il canale wholesale russo ricerca marchi italiani focalizzati su maglieria e outerwear di alta qualità.',
+      body: 'PROfashion.ru traccia le linee strategiche dei buyers locali a Mosca e San Pietroburgo. Con il cambio EUR/RUB stabilizzato a quota 96.26, i negozi indipendenti premium consolidano gli ordini per la stagione Autunno/Inverno tramite la logistica parallela europea.'
+    },
+    {
+      id: 4,
+      market: 'RUS',
+      source: 'Kommersant (Коммерсантъ)',
+      title: 'Logistica e Pagamenti Internazionali: Nuove disposizioni per le transazioni commerciali',
+      date: '2026-09-20',
+      preview: 'I principali istituti bancari dell’Eurasia adeguano i canali di regolamento in valuta per l’importazione di beni tessili.',
+      body: 'Il quotidiano economico Kommersant analizza il flusso delle transazioni B2B. I grossisti del settore Moda mantengono aperte le linee d’importazione attraverso piattaforme finanziarie autorizzate nei Paesi CIS (Kazakistan e Armenia).'
+    },
+    {
+      id: 5,
+      market: 'EUR',
+      source: 'TextilWirtschaft (Germania)',
+      title: 'Mercato DACH: Monitoraggio sul traffico pedonale nei department store e multimarca tedeschi',
+      date: '2026-09-21',
+      preview: 'I dati di vendita in Germania indicano una tenuta del segmento Premium Frau, con buone performance nelle città di Francoforte e Monaco.',
+      body: 'TextilWirtschaft mappa la salute del retail d’abbigliamento nell’area di lingua tedesca. Le catene storiche continuano a riorganizzare gli spazi espositivi valorizzando le collezioni Italian Made.'
+    },
+    {
+      id: 6,
+      market: 'EUR',
+      source: 'Journal du Textile (Francia)',
+      title: 'Parigi e Retail Francese: Piani di espansione nei grandi centri commerciali e vie dello shopping',
+      date: '2026-09-19',
+      preview: 'La rete distributiva d’oltralpe mostra un focus rinnovato sulle collezioni strutturate di prêt-à-porter femminile.',
+      body: 'Il settore tessile e abbigliamento francese analizza l’impatto dei costi energetici sui margini e le strategie d’ingresso nei principali department store parigini.'
+    },
+    {
+      id: 7,
+      market: 'EUR',
+      source: 'Modaes (Spagna)',
+      title: 'Strategie Retail nella Penisola Iberica: Riorganizzazione dei format per il mercato Premium',
+      date: '2026-09-18',
+      preview: 'In Spagna il canale retail fashion consolida la ripresa nei distretti commerciali di Madrid (Barrio de Salamanca) e Barcellona.',
+      body: 'Modaes offre una panoramica B2B sulle dinamiche della distribuzione iberica, evidenziando il forte interesse dei consumatori per lo stile sartoriale italiano.'
+    },
+    {
+      id: 8,
+      market: 'USA',
+      source: 'Business of Fashion (BoF)',
+      title: 'Mercato Nord America: Analisi dei consumi nei Department Store e Boutique di Lusso',
+      date: '2026-09-20',
+      preview: 'Negli Stati Uniti l’impatto del cambio EUR/USD influisce sulle strategie di pricing dei brand europei esportatori.',
+      body: 'Un’analisi BoF sottolinea la tenuta della spesa nel canale abbigliamento femminile di fascia alta negli USA, con focus su New York, Florida e California.'
+    }
+  ];
+
+  let activeMarket = 'ALL';
+
+  function renderNews() {
+    const grid = document.getElementById('newsGrid');
+    const searchVal = document.getElementById('searchInput').value.toLowerCase();
+    grid.innerHTML = '';
+
+    const filtered = articles.filter(item => {
+      const matchMarket = (activeMarket === 'ALL' || item.market === activeMarket);
+      const matchSearch = item.title.toLowerCase().includes(searchVal) ||
+                          item.preview.toLowerCase().includes(searchVal) ||
+                          item.source.toLowerCase().includes(searchVal);
+      return matchMarket && matchSearch;
+    });
+
+    document.getElementById('count-info').innerText = `Notizie trovate: ${filtered.length}`;
+
+    filtered.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'news-card';
+      card.innerHTML = `
+        <div>
+          <div class="card-header">
+            <span class="source-badge">${item.source}</span>
+            <span class="market-tag">${item.market}</span>
+          </div>
+          <div class="news-title">${item.title}</div>
+          <div class="news-preview">${item.preview}</div>
+        </div>
+        <div class="card-footer">
+          <span>${item.date}</span>
+          <span class="btn-read" onclick="openModal(${item.id})">Leggi Preview 100 Righe</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function filterMarket(market) {
+    activeMarket = market;
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    renderNews();
+  }
+
+  function handleSearch() {
+    renderNews();
+  }
+
+  function openModal(id) {
+    const item = articles.find(a => a.id === id);
+    if (!item) return;
+    document.getElementById('modalTitle').innerText = item.title;
+    document.getElementById('modalMeta').innerText = `Fonte: ${item.source} | Mercato: ${item.market} | Data: ${item.date}`;
+    document.getElementById('modalBody').innerText = item.body;
+    document.getElementById('newsModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('newsModal').style.display = 'none';
+  }
+
+  function exportCSV() {
+    let csvContent = "data:text/csv;charset=utf-8,ID,Mercato,Fonte,Titolo,Data\n";
+    articles.forEach(a => {
+      csvContent += `"${a.id}","${a.market}","${a.source}","${a.title.replace(/"/g, '""')}","${a.date}"\n`;
+    });
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "Rassegna_Stampa_LuisaSpagnoli.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  // Init
+  renderNews();
+</script>
+</body>
+</html>
